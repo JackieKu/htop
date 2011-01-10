@@ -206,8 +206,6 @@ void CRT_init(int delay, int colorScheme) {
    if (!has_colors())
       CRT_colorScheme = 1;
    CRT_setColors(CRT_colorScheme);
-
-   mousemask(BUTTON1_CLICKED, NULL);
 }
 
 void CRT_done() {

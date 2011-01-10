@@ -371,9 +371,11 @@ int main(int argc, char** argv) {
       {"no-color", no_argument,         0, 'C'},
       {"no-colour",no_argument,         0, 'C'},
       {"pid",      required_argument,   0, 'p'},
+      {"no-mouse", no_argument,         0, 'M'},
       {0,0,0,0}
    };
    int sortKey = 0;
+   int useMouse = 1;
 
    char *lc_ctype = getenv("LC_CTYPE");
    if(lc_ctype != NULL)
@@ -384,7 +386,7 @@ int main(int argc, char** argv) {
       setlocale(LC_CTYPE, "");
 
    /* Parse arguments */
-   while ((opt = getopt_long(argc, argv, "hvCs:d:u:p:", long_opts, &opti))) {
+   while ((opt = getopt_long(argc, argv, "hvCMs:d:u:p:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'h':
@@ -442,6 +444,9 @@ int main(int argc, char** argv) {
 
             break;
          }
+         case 'M':
+            useMouse = 0;
+            break;
          default:
             exit(1);
       }
@@ -491,6 +496,8 @@ int main(int argc, char** argv) {
       settings->colorScheme = COLORSCHEME_MONOCHROME;
 
    CRT_init(settings->delay, settings->colorScheme);
+   if (useMouse)
+      mousemask(BUTTON1_CLICKED, NULL);
 
    Panel* panel = Panel_new(0, headerHeight, COLS, LINES - headerHeight - 2, false, &Process_class);
    ProcessList_setPanel(pl, panel);
