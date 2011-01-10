@@ -181,6 +181,8 @@ void CRT_restorePrivileges();
 
 void CRT_init(int delay, int colorScheme);
 
+void CRT_initMouse();
+
 void CRT_done();
 
 void CRT_fatalError(const char* note);

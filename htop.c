@@ -63,6 +63,7 @@ typedef struct CommandLineSettings_ {
    int delay;
    bool useColors;
    bool treeView;
+   bool useMouse;
 } CommandLineSettings;
 
 static CommandLineSettings parseArguments(int argc, char** argv) {
@@ -74,6 +75,7 @@ static CommandLineSettings parseArguments(int argc, char** argv) {
       .delay = -1,
       .useColors = true,
       .treeView = false,
+      .useMouse = true
    };
 
    static struct option long_opts[] =
@@ -88,12 +90,13 @@ static CommandLineSettings parseArguments(int argc, char** argv) {
       {"tree",     no_argument,         0, 't'},
       {"pid",      required_argument,   0, 'p'},
       {"io",       no_argument,         0, 'i'},
+      {"no-mouse", no_argument,         0, 'M'},
       {0,0,0,0}
    };
 
    int opt, opti=0;
    /* Parse arguments */
-   while ((opt = getopt_long(argc, argv, "hvCst::d:u:p:i", long_opts, &opti))) {
+   while ((opt = getopt_long(argc, argv, "hvCMst::d:u:p:i", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'h':
@@ -152,6 +155,9 @@ static CommandLineSettings parseArguments(int argc, char** argv) {
 
             break;
          }
+         case 'M':
+            flags.useMouse = false;
+            break;
          default:
             exit(1);
       }
@@ -208,7 +214,10 @@ int main(int argc, char** argv) {
       settings->treeView = true;
 
    CRT_init(settings->delay, settings->colorScheme);
-   
+
+   if (flags.useMouse)
+      CRT_initMouse();
+
    MainPanel* panel = MainPanel_new();
    ProcessList_setPanel(pl, (Panel*) panel);
 
