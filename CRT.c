@@ -620,13 +620,14 @@ void CRT_init(int delay, int colorScheme) {
       CRT_utf8 ? CRT_treeStrUtf8 :
 #endif
       CRT_treeStrAscii;
+}
 
+void CRT_initMouse() {
 #if NCURSES_MOUSE_VERSION > 1
    mousemask(BUTTON1_RELEASED | BUTTON4_PRESSED | BUTTON5_PRESSED, NULL);
 #else
    mousemask(BUTTON1_RELEASED, NULL);
 #endif
-
 }
 
 void CRT_done() {
