@@ -302,6 +302,13 @@ static inline void Process_writeCommand(Process* this, int attr, int baseattr, R
    int start = RichString_size(str), finish = 0;
    char* comm = this->comm;
 
+   if (this->settings->onlyBaseName) {
+      for (const char *ptr = comm; *ptr && *ptr != ' '; ptr++) {
+         if (*ptr == '/')
+            comm = ptr + 1;
+      }
+   }
+
    if (this->settings->highlightBaseName || !this->settings->showProgramPath) {
       int i, basename = 0;
       for (i = 0; i < this->basenameOffset; i++) {

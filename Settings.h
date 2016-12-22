@@ -44,6 +44,7 @@ typedef struct Settings_ {
    bool hideKernelThreads;
    bool hideUserlandThreads;
    bool highlightBaseName;
+   bool onlyBaseName;
    bool highlightMegabytes;
    bool highlightThreads;
    bool updateProcessNames;
