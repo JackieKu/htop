@@ -53,6 +53,7 @@ typedef struct Settings_ {
    bool hideKernelThreads;
    bool hideUserlandThreads;
    bool highlightBaseName;
+   bool onlyBaseName;
    bool highlightMegabytes;
    bool highlightThreads;
    bool updateProcessNames;
@@ -210,6 +211,8 @@ static bool Settings_read(Settings* this, const char* fileName) {
          this->showProgramPath = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_base_name")) {
          this->highlightBaseName = atoi(option[1]);
+      } else if (String_eq(option[0], "only_base_name")) {
+         this->onlyBaseName = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_megabytes")) {
          this->highlightMegabytes = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_threads")) {
@@ -306,6 +309,7 @@ bool Settings_write(Settings* this) {
    fprintf(fd, "show_thread_names=%d\n", (int) this->showThreadNames);
    fprintf(fd, "show_program_path=%d\n", (int) this->showProgramPath);
    fprintf(fd, "highlight_base_name=%d\n", (int) this->highlightBaseName);
+   fprintf(fd, "only_base_name=%d\n", (int) this->onlyBaseName);
    fprintf(fd, "highlight_megabytes=%d\n", (int) this->highlightMegabytes);
    fprintf(fd, "highlight_threads=%d\n", (int) this->highlightThreads);
    fprintf(fd, "tree_view=%d\n", (int) this->treeView);
@@ -337,6 +341,7 @@ Settings* Settings_new(int cpuCount) {
    this->hideUserlandThreads = false;
    this->treeView = false;
    this->highlightBaseName = false;
+   this->onlyBaseName = false;
    this->highlightMegabytes = false;
    this->detailedCPUTime = false;
    this->countCPUsFromZero = false;
