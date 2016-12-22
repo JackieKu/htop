@@ -113,6 +113,8 @@ static bool Settings_read(Settings* this, const char* fileName, int cpuCount) {
          this->pl->showThreadNames = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_base_name")) {
          this->pl->highlightBaseName = atoi(option[1]);
+      } else if (String_eq(option[0], "only_base_name")) {
+         this->pl->onlyBaseName = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_megabytes")) {
          this->pl->highlightMegabytes = atoi(option[1]);
       } else if (String_eq(option[0], "highlight_threads")) {
@@ -183,6 +185,7 @@ bool Settings_write(Settings* this) {
    fprintf(fd, "shadow_other_users=%d\n", (int) this->pl->shadowOtherUsers);
    fprintf(fd, "show_thread_names=%d\n", (int) this->pl->showThreadNames);
    fprintf(fd, "highlight_base_name=%d\n", (int) this->pl->highlightBaseName);
+   fprintf(fd, "only_base_name=%d\n", (int) this->pl->onlyBaseName);
    fprintf(fd, "highlight_megabytes=%d\n", (int) this->pl->highlightMegabytes);
    fprintf(fd, "highlight_threads=%d\n", (int) this->pl->highlightThreads);
    fprintf(fd, "tree_view=%d\n", (int) this->pl->treeView);

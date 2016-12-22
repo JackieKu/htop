@@ -254,6 +254,7 @@ ProcessList* ProcessList_new(UsersTable* usersTable, Hashtable* pidWhiteList) {
    this->hideUserlandThreads = false;
    this->treeView = false;
    this->highlightBaseName = false;
+   this->onlyBaseName = false;
    this->highlightMegabytes = false;
    this->detailedCPUTime = false;
    this->countCPUsFromZero = false;

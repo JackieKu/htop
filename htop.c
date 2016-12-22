@@ -928,6 +928,11 @@ int main(int argc, char** argv) {
          pl->hideKernelThreads = !pl->hideKernelThreads;
          settings->changed = true;
          break;
+      case 'o':
+         refreshTimeout = 0;
+         pl->onlyBaseName = !pl->onlyBaseName;
+         settings->changed = true;
+         break;
       default:
          doRefresh = false;
          refreshTimeout = resetRefreshTimeout;

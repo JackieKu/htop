@@ -433,7 +433,17 @@ static void Process_printTime(RichString* str, unsigned long long t) {
 
 static inline void Process_writeCommand(Process* this, int attr, int baseattr, RichString* str) {
    int start = RichString_size(str);
-   RichString_append(str, attr, this->comm);
+   if (this->pl->onlyBaseName) {
+      const char *ptr = this->comm;
+      const char *comm = ptr;
+      for (;*ptr && *ptr != ' ';ptr++) {
+         if (*ptr == '/')
+            comm = ptr + 1;
+      }
+      RichString_append(str, attr, comm);
+   }
+   else
+      RichString_append(str, attr, this->comm);
    if (this->pl->highlightBaseName) {
       int finish = RichString_size(str) - 1;
       if (this->basenameOffset != -1)

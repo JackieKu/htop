@@ -125,6 +125,7 @@ typedef struct ProcessList_ {
    bool hideUserlandThreads;
    bool treeView;
    bool highlightBaseName;
+   bool onlyBaseName;
    bool highlightMegabytes;
    bool highlightThreads;
    bool detailedCPUTime;
